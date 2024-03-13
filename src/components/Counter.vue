@@ -1,41 +1,42 @@
 <template>
   <div>
-    <h1>Counter: {{ counter }}</h1>
-    <h2 v-if="isLoading">Loading...</h2>
+    <h2>Counter: {{ counter }}</h2>
+    <h3 v-if="isLoading">Loading...</h3>
+    <h3 v-if="error">Error: {{ error }}</h3>
     <button @click="increment">Increment</button>
     <button @click="decrement">Decrement</button>
-    <button @click="incrementAsync">Increment Async</button>
-    <button @click="decrementAsync">Decrement Async</button>
-    <h3>Nested Counter: {{ nestedCounter }}</h3>
+    <button @click="incrementBy(5)">Increment by 5</button>
+    <button @click="decrementBy(5)">Decrement by 5</button>
+    <h4>Nested Counter: {{ nestedCounter }}</h4>
     <button @click="incrementNestedCounter">Increment Nested Counter</button>
-    <button @click="incrementNestedCounterAsync">Increment Nested Counter Async</button>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters([
-      'counter',
-      'isLoading',
-      'nestedCounter'
-    ])
+    ...mapState(['counter', 'isLoading', 'error', 'nestedCounter']),
+    ...mapGetters(['isLoading', 'error', 'nestedCounter'])
   },
   methods: {
-    ...mapActions([
-      'increment',
-      'decrement',
-      'incrementAsync',
-      'decrementAsync',
-      'incrementNestedCounter',
-      'incrementNestedCounterAsync'
-    ])
+    ...mapActions(['incrementAsync', 'decrementAsync', 'incrementByAsync', 'decrementByAsync', 'subModule/incrementNestedCounterAsync']),
+    increment() {
+      this.incrementAsync();
+    },
+    decrement() {
+      this.decrementAsync();
+    },
+    incrementBy(amount) {
+      this.incrementByAsync({ amount });
+    },
+    decrementBy(amount) {
+      this.decrementByAsync({ amount });
+    },
+    incrementNestedCounter() {
+      this['subModule/incrementNestedCounterAsync']();
+    }
   }
 }
 </script>
-
-<style scoped>
-/* Estilos específicos do componente podem ser adicionados aqui */
-</style>
