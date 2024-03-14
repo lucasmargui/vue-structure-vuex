@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
-import cart from '@/components/modules/cart';
-import products from '@/components/modules/products';
+import cartModule from '@/components/modules/cart';
+ import productsModule from '@/components/modules/products';
 
 
 export default createStore({
@@ -93,8 +93,31 @@ export default createStore({
     },
   },
     modules: {
-      products,
-      cart
+     
+
+      //Importando módulos
+      cart:cartModule,
+      products:productsModule,
+    
+      ///Exemplo direto
+      account: {
+        namespaced: true,
+        state: () => ({}), 
+        getters: {
+          // isAdmin() { } 
+        },
+        actions: {
+          // login() { }
+        },
+        mutations: {
+          // login() { } 
+        },
+        // nested modules
+        modules: {
+    
+        }
+      }
+
       
   }
 })

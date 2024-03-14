@@ -2,7 +2,7 @@
   <div>
     <h2>Produtos</h2>
     <ul>
-      <li v-for="product in products" :key="product.id">
+      <li v-for="product in allProducts" :key="product.id">
         {{ product.name }} - {{ product.price }}
         <button @click="addToCart(product)">Adicionar ao Carrinho</button>
       </li>
@@ -18,34 +18,21 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from "vuex";
+
 export default {
-  data() {
-    return {
-      products: [],
-      cartItems: []
-    };
-  },
   computed: {
     // Mapeia as propriedades dos módulos Vuex para as propriedades do componente
-    products() {
-      return this.$store.getters.allProducts;
-    },
-    cartItems() {
-      return this.$store.getters.cartItems;
-    }
+    ...mapGetters("cart", ["cartItems"]),
+    ...mapGetters("products", ["allProducts"]), // Mapeia os getters 'allProducts'
   },
   methods: {
-    // Dispara as ações definidas nos módulos Vuex
-    fetchProducts() {
-      this.$store.dispatch('fetchProducts');
-    },
-    addToCart(product) {
-      this.$store.dispatch('addToCart', product);
-    }
+    ...mapActions("cart", ["addToCart"]),
+    ...mapActions("products", ["fetchProducts"]),
   },
   created() {
     // Chama a ação para buscar os produtos assim que o componente é criado
     this.fetchProducts();
-  }
+  },
 };
 </script>
