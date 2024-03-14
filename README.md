@@ -27,6 +27,11 @@ state: {
 ```
 Esta é uma propriedade que define o estado inicial do store. No exemplo dado, o estado inicial inclui um contador inicializado com zero (counter: 0), uma flag para indicar se está carregando algo (loading: false), e uma variável para armazenar erros (error: null).
 
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/6d90f022-105c-4c7e-91cc-6538b888f3ee" style="width:90%">
+</div>
+
+
 ### getters
 
 ```  
@@ -61,6 +66,9 @@ Mutations possuí quatro funções sincronas para alterar os valores de counter,
 
 - setError: Esta mutação é usada para definir mensagens de erro na aplicação. O payload contém a mensagem de erro a ser definida.
 
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/bbade7d1-5b2d-4b78-b2a4-ab866ac7b445" style="width:90%">
+</div>
 
 ### actions
 
@@ -82,4 +90,11 @@ Possui 4 funções assincronas incrementAsync, decrementAsync, incrementByAsync 
 - commit('setLoading', false);: Independentemente do sucesso ou falha da operação, este código garante que a indicação de carregamento seja atualizada para false no final da função.
 
 (mesma lógica para incrementAsync, decrementAsync, decrementAsync)
+
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/a721e1a0-019c-45e7-bec3-021b353966a9" style="width:90%">
+</div>
+
+
+
 
