@@ -214,8 +214,58 @@ mutations: {
   <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/c2c83025-92a7-43a8-8e47-7c360bc6a8de" style="width:90%">
 </div>
 
+## Modules
+
+Os "modules" são uma forma de dividir a store da aplicação em módulos menores e mais gerenciáveis. Cada módulo tem seu próprio estado, mutações, ações e getters. Isso ajuda a organizar e manter a complexidade da store em larga escala, tornando-a mais modular e fácil de entender e manter.
+
+### Criação do módulo
+
+<div align="center">
+  <h2> Module products </h2>
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/9f95fc06-363b-4eb0-8224-0e2c4820aa42" style="width:60%">
+
+</div>
+<br>
+<div align="center">
+  <h2> Module cart </h2>
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/35590572-d40e-4e21-8ded-2f252177a14a" style="width:60%">
+</div>
+
+### Importando o módulo em store.js
+
+```
+import cartModule from '@/components/modules/cart';
+import productsModule from '@/components/modules/products';
+
+```
+
+### Adicionando módulos
+
+```
+modules: {
+      cart:cartModule,
+      products:productsModule,
+      ....
+```
+
+### Acessando getters do módulo na view
 
 
+```
+computed: {
+    
+    ...mapGetters("cart", ["cartItems"]),
+    ...mapGetters("products", ["allProducts"]), // Mapeia os getters 'allProducts'
+  },
+```
 
+### Acessando actions do módulo na view
+
+```
+  methods: {
+    ...mapActions("cart", ["addToCart"]),
+    ...mapActions("products", ["fetchProducts"]),
+  },
+```
 
 
