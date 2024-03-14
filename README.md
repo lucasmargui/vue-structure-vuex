@@ -66,8 +66,9 @@ Mutations possuí quatro funções sincronas para alterar os valores de counter,
 
 - setError: Esta mutação é usada para definir mensagens de erro na aplicação. O payload contém a mensagem de erro a ser definida.
 
+
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/bbade7d1-5b2d-4b78-b2a4-ab866ac7b445" style="width:90%">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/9ca3b6ba-eb7b-4497-9016-6da9cae8277a" style="width:90%">
 </div>
 
 ### actions
@@ -96,5 +97,75 @@ Possui 4 funções assincronas incrementAsync, decrementAsync, incrementByAsync 
 </div>
 
 
+## Login
 
+### state
+
+```
+state: {
+  ...
+  user: null
+  ...
+```
+
+- Dentro do objeto state, há uma chave chamada user, que inicialmente está definida como null. Isso indica que o estado do usuário está vazio ou não definido no momento.
+
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/704d9e18-c010-419a-8546-e5d224189d3d" style="width:90%">
+</div>
+
+
+### mutations
+
+```
+setUser(state, user) {
+  state.user = user
+},
+clearUser(state) {
+  state.user = null
+}
+```
+
+- setUser(state, user): É uma mutação chamada setUser. Ela recebe dois parâmetros: state (que é o estado atual do Vuex) e user. Essa mutação é usada para definir o estado do usuário no Vuex. Ela atualiza o estado com o objeto user que é passado como argumento.
+
+- clearUser(state): É outra mutação chamada clearUser. Ela recebe apenas o parâmetro state. Essa mutação é usada para limpar o estado do usuário, definindo-o como null.
+
+
+
+
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/1007e9aa-e002-4535-a3e6-b644f83f9e88" style="width:90%">
+</div>
+
+
+
+
+### actions
+```
+  async loginAsync({ commit }, payload) {
+      const user  = payload;
+      commit('setUser', user);
+    },
+```
+const user = payload;: Aqui, payload é atribuído à constante user. Presumivelmente, o payload contém informações sobre o usuário que está tentando fazer login.
+
+commit('setUser', user);: Esta linha invoca uma mutação chamada 'setUser' usando o método commit. As mutações são usadas para alterar o estado da loja de forma síncrona. Neste caso, a mutação 'setUser' é usada para atualizar o estado com as informações do usuário após o login.
+
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/664608dd-9021-4cab-9643-df9fb7e9e061" style="width:90%">
+</div>
+
+
+
+
+
+```
+async logoutAsync({ commit }) {
+     
+      commit('clearUser');
+      
+    },
+```
+
+Dentro da função logoutAsync, o código chama commit('clearUser'),  é responsável por limpar os dados do usuário do estado da aplicação.
 
