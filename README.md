@@ -1,32 +1,85 @@
 
 # Estrutura Vuex
 
+## Conceito
 
-<div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/2378b233-503d-4847-9a47-2029b05f8c6b" style="width:45%">
-   <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/ab9df543-7fbb-4e86-83e4-48f13447b485" style="width:45%">
-</div>
+- state: Esta propriedade define o estado inicial do store.
+
+- getters: Aqui, definimos getters, que são funções usadas para acessar os estados do store.
+
+- mutations: As mutações são funções síncronas que modificam o estado do store Vuex.
+
+- actions: As actions são funções assíncronas que chamam mutações. Elas são usadas principalmente para operações assíncronas, como chamadas de API.
+
+- modules: O Vuex permite que você divida seu store em módulos menores, cada um com seu próprio estado, getters, mutations e actions.
 
 
+## Counter
 
-## store/index.js
+### state
 
-- import { createStore } from 'vuex': Esta linha importa a função createStore do Vuex, que será usada para criar a loja Vuex.
+```
+state: {
+  counter: 0
+  loading: false, 
+  error: null,
+  ...
+```
+Esta é uma propriedade que define o estado inicial do store. No exemplo dado, o estado inicial inclui um contador inicializado com zero (counter: 0), uma flag para indicar se está carregando algo (loading: false), e uma variável para armazenar erros (error: null).
 
-- export default createStore({ ... }): Aqui, estamos exportando por padrão uma nova instância da loja Vuex, criada usando a função createStore. Dentro do createStore, passamos um objeto com várias propriedades que definem o estado, getters, mutations e actions da loja.
+### getters
 
-- state: Esta propriedade define o estado inicial da loja Vuex. Neste caso, temos apenas um estado chamado counter inicializado com o valor 0.
+```  
+getters: {
+    counter: state => state.counter, 
+    isLoading: state => state.loading, 
+    error: state => state.error /
+```
+- counter: state => state.counter: Este é um getter chamado "counter" que retorna o valor do estado counter armazenado no objeto state. Isso significa que sempre que você chamar getters.counter, você obterá o valor atual do contador.
 
-- getters: Aqui, definimos getters, que são funções usadas para acessar os estados da loja. O getter counter retorna o valor do estado counter.
+- isLoading: state => state.loading: Este é um getter chamado "isLoading" que retorna o valor do estado loading armazenado no objeto state. Ele fornece acesso ao estado de carregamento da aplicação.
 
-- mutations: As mutações são funções síncronas que modificam o estado da loja Vuex. Aqui, temos duas mutações: decrement e increment, que decrementam e incrementam o estado counter, respectivamente.
+- error: state => state.error: Este é um getter chamado "error" que retorna o valor do estado error armazenado no objeto state. Ele fornece acesso a mensagens de erro potencialmente presentes no estado da aplicação.
 
-- actions: As actions são funções assíncronas que chamam mutações. Elas são usadas principalmente para operações assíncronas, como chamadas de API. Neste caso, temos duas actions: decrement e increment, que simplesmente chamam as mutações correspondentes.
+### mutations
 
-- modules: O Vuex permite que você divida sua loja em módulos menores, cada um com seu próprio estado, getters, mutations e actions. Aqui, não estamos utilizando módulos, então esta propriedade está vazia.
+```  
+mutations: {
+    increment: (state, payload) => state.counter = state.counter  + payload, 
+    decrement: (state, payload) => state.counter  = state.counter - payload, 
+    setLoading: (state, payload) => state.loading = payload, 
+    setError: (state, payload) => state.error = payload,
+```
 
-## Counter.vue
+Mutations possuí quatro funções sincronas para alterar os valores de counter, increment e decrement
 
-- mapGetters mapeia os getters do Vuex para as propriedades computadas do componente. No exemplo, está mapeando o getter 'counter' para a propriedade computada 'counter'.
+- increment: Esta mutação é usada para aumentar o valor do contador no estado da aplicação. Ela recebe um payload que é adicionado ao valor atual do contador.
 
-- mapActions mapeia as actions do Vuex para os métodos do componente. No exemplo, está mapeando as actions 'decrement' e 'increment' para os métodos 'decrement' e 'increment' do componente.
+- decrement: Esta mutação é usada para diminuir o valor do contador no estado da aplicação. Ela também recebe um payload que é subtraído do valor atual do contador.
+
+- setLoading: Esta mutação é usada para definir o estado de carregamento da aplicação. O payload determina o estado de carregamento, que geralmente é um booleano indicando se a aplicação está atualmente em um estado de carregamento ou não.
+
+- setError: Esta mutação é usada para definir mensagens de erro na aplicação. O payload contém a mensagem de erro a ser definida.
+
+
+### actions
+
+Possui 4 funções assincronas incrementAsync, decrementAsync, incrementByAsync e decrementByAsync
+
+
+- async incrementByAsync({ commit }, payload): Esta é uma função assíncrona chamada incrementByAsync que aceita dois argumentos: commit e payload. commit é um método que é usado para disparar as mutações do Vuex, enquanto payload é um objeto que contém dados adicionais, como o amount que é desestruturado na linha seguinte.
+
+- const { amount } = payload;: Este código desestrutura o objeto payload, extraindo o valor de amount.
+
+- commit('setLoading', true);: Aqui, é disparada uma mutação chamada 'setLoading', atualiza o estado para indicar que alguma operação está ocorrendo, como o carregamento de dados.
+
+- await new Promise(resolve => setTimeout(resolve, 1000));: Este é um truque comum usado para simular uma operação assíncrona. Ele cria uma promessa que será resolvida após um segundo, simulando uma espera para alguma operação assíncrona acontecer, como uma chamada de API.
+
+- commit('increment', amount);: Depois que a espera é concluída, outra mutação é disparada, desta vez para incrementar um valor no estado gerenciado pelo Vuex.
+
+- commit('setError', error.message);: Se ocorrer algum erro durante a execução do código dentro do bloco try, será capturado pelo bloco catch e outra mutação será disparada para atualizar o estado com uma mensagem de erro.
+
+- commit('setLoading', false);: Independentemente do sucesso ou falha da operação, este código garante que a indicação de carregamento seja atualizada para false no final da função.
+
+(mesma lógica para incrementAsync, decrementAsync, decrementAsync)
+
