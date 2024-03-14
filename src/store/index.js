@@ -1,4 +1,7 @@
 import { createStore } from 'vuex'
+import cart from '@/components/modules/cart';
+import products from '@/components/modules/products';
+
 
 export default createStore({
   state: {
@@ -75,26 +78,23 @@ export default createStore({
       } finally {
         commit('setLoading', false);
       }
-    }
+    },
+    async loadingAsync({ commit }) { 
+      commit('setLoading', true);
+      try {
+      
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      } catch (error) {
+        commit('setError', error.message); // Define uma mensagem de erro em caso de falha
+      } finally {
+        commit('setLoading', false); // Desativa o estado de carregamento, independente do resultado
+      }
+    },
   },
     modules: {
-    subModule: {
-      state: {
-        nestedCounter: 0 // Estado para armazenar um contador aninhado
-      },
-      getters: {
-        nestedCounter: state => state.nestedCounter // Getter para obter o valor do contador aninhado
-      },
-      mutations: {
-        incrementNestedCounter: state => state.nestedCounter++ // Mutação para incrementar o contador aninhado
-      },
-      actions: {
-        async incrementNestedCounterAsync({ commit }) { // Ação assíncrona para incrementar o contador aninhado
-          // Simulando uma operação assíncrona, por exemplo, uma chamada de API
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          commit('incrementNestedCounter'); // Chama a mutação para incrementar o contador aninhado
-        }
-      }
-    }
+      products,
+      cart
+      
   }
 })

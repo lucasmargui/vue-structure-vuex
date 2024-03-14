@@ -1,15 +1,11 @@
 <template>
   <div class="container">
   <div class="counter-card">
-    <h2>Counter: {{ counter }}</h2>
     <h3 v-if="isLoading">Loading...</h3>
     <h3 v-if="error">Error: {{ error }}</h3>
-    <div class="button-container">
-      <button class="action-button" @click="increment">Increment</button>
-      <button class="action-button" @click="decrement">Decrement</button>
-      <button class="action-button" @click="incrementBy(5)">Increment by 5</button>
-      <button class="action-button" @click="decrementBy(5)">Decrement by 5</button>
-    </div>
+
+    <h4>Exemplo de loading</h4>
+    <button class="action-button" @click="loading">Clique parar acionar loading</button>
   </div>
   </div>
 </template>
@@ -18,24 +14,15 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: 'Counter',
+  name: 'Loading',
   computed: {
-    ...mapState(['counter', 'isLoading', 'error', 'nestedCounter']),
-    ...mapGetters(['isLoading', 'error', 'nestedCounter']),
+    ...mapState(['isLoading']),
+    ...mapGetters(['isLoading']),
   },
   methods: {
-    ...mapActions(['incrementAsync', 'decrementAsync', 'incrementByAsync', 'decrementByAsync', 'subModule/incrementNestedCounterAsync']),
-    increment() {
-      this.incrementAsync();
-    },
-    decrement() {
-      this.decrementAsync();
-    },
-    incrementBy(amount) {
-      this.incrementByAsync({ amount });
-    },
-    decrementBy(amount) {
-      this.decrementByAsync({ amount });
+    ...mapActions(['loadingAsync']),
+    loading() {
+      this.loadingAsync();
     },
 
   }
