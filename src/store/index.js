@@ -2,40 +2,48 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    counter: 0,
-    loading: false,
-    error: null
+    counter: 0, // Estado para armazenar um contador
+    loading: false, // Estado para indicar se está carregando
+    error: null, // Estado para armazenar mensagens de erro
+    user: null
   },
   getters: {
-    counter: state => state.counter,
-    isLoading: state => state.loading,
-    error: state => state.error
+    counter: state => state.counter, // Getter para obter o valor do contador
+    isLoading: state => state.loading, // Getter para obter o estado de carregamento
+    error: state => state.error // Getter para obter mensagens de erro
+
   },
   mutations: {
-    increment: (state, payload) => state.counter = state.counter  + payload,
-    decrement: (state, payload) => state.counter  = state.counter - payload,
-    setLoading: (state, payload) => state.loading = payload,
-    setError: (state, payload) => state.error = payload
+    increment: (state, payload) => state.counter = state.counter  + payload, // Mutação para incrementar o contador
+    decrement: (state, payload) => state.counter  = state.counter - payload, // Mutação para decrementar o contador
+    setLoading: (state, payload) => state.loading = payload, // Mutação para definir o estado de carregamento
+    setError: (state, payload) => state.error = payload, // Mutação para definir mensagens de erro
+    setUser(state, user) {
+      state.user = user
+    },
+    clearUser(state) {
+      state.user = null
+    }
   },
   actions: {
-    async incrementAsync({ commit }, payload) {
-      commit('setLoading', true);
+    async incrementAsync({ commit }) { // Ação assíncrona para incrementar o contador
+      commit('setLoading', true); // Ativa o estado de carregamento
       try {
         // Simulando uma operação assíncrona, por exemplo, uma chamada de API
         await new Promise(resolve => setTimeout(resolve, 1000));
-        commit('increment');
+        commit('increment', 1); // Chama a mutação para incrementar o contador
       } catch (error) {
-        commit('setError', error.message);
+        commit('setError', error.message); // Define uma mensagem de erro em caso de falha
       } finally {
-        commit('setLoading', false);
+        commit('setLoading', false); // Desativa o estado de carregamento, independente do resultado
       }
     },
-    async decrementAsync({ commit }, payload) {
+    async decrementAsync({ commit }) {
       commit('setLoading', true);
       try {
         // Simulando uma operação assíncrona, por exemplo, uma chamada de API
         await new Promise(resolve => setTimeout(resolve, 1000));
-        commit('decrement');
+        commit('decrement', 1);
       } catch (error) {
         commit('setError', error.message);
       } finally {
@@ -69,22 +77,22 @@ export default createStore({
       }
     }
   },
-  modules: {
+    modules: {
     subModule: {
       state: {
-        nestedCounter: 0
+        nestedCounter: 0 // Estado para armazenar um contador aninhado
       },
       getters: {
-        nestedCounter: state => state.nestedCounter
+        nestedCounter: state => state.nestedCounter // Getter para obter o valor do contador aninhado
       },
       mutations: {
-        incrementNestedCounter: state => state.nestedCounter++
+        incrementNestedCounter: state => state.nestedCounter++ // Mutação para incrementar o contador aninhado
       },
       actions: {
-        async incrementNestedCounterAsync({ commit }) {
+        async incrementNestedCounterAsync({ commit }) { // Ação assíncrona para incrementar o contador aninhado
           // Simulando uma operação assíncrona, por exemplo, uma chamada de API
           await new Promise(resolve => setTimeout(resolve, 1000));
-          commit('incrementNestedCounter');
+          commit('incrementNestedCounter'); // Chama a mutação para incrementar o contador aninhado
         }
       }
     }
