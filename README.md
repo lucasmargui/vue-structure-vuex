@@ -169,3 +169,53 @@ async logoutAsync({ commit }) {
 
 Dentro da função logoutAsync, o código chama commit('clearUser'),  é responsável por limpar os dados do usuário do estado da aplicação.
 
+
+## Loading
+
+### state
+
+```
+state: {
+    loading: false,
+```
+
+loading: false: Dentro do objeto state, há uma chave chamada loading, que mantém o estado de um processo de carregamento. Neste caso, loading é inicializado como false, o que significa que inicialmente o componente não estará em um estado de carregamento.
+
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/eaf58d0e-67b1-4704-9577-1ce90867793e" style="width:90%">
+</div>
+
+### mutations
+
+```
+mutations: {
+    ...
+    setLoading: (state, payload) => state.loading = payload,
+    
+```
+
+
+- setLoading: Esta mutação é usada para definir o estado de carregamento da aplicação. O payload determina o estado de carregamento, que geralmente é um booleano indicando se a aplicação está atualmente em um estado de carregamento ou não.
+
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/253abcd2-85f3-4bde-88af-db6fc7a9afff" style="width:90%">
+</div>
+
+
+### actions
+
+- commit('setLoading', true);: Aqui, é disparada uma mutação chamada 'setLoading', atualiza o estado para indicar que alguma operação está ocorrendo, como o carregamento de dados.
+
+- await new Promise(resolve => setTimeout(resolve, 1000));: Este é um truque comum usado para simular uma operação assíncrona. Ele cria uma promessa que será resolvida após um segundo, simulando uma espera para alguma operação assíncrona acontecer, como uma chamada de API.
+
+- commit('setLoading', false);: Independentemente do sucesso ou falha da operação, este código garante que a indicação de carregamento seja atualizada para false no final da função.
+
+<div align="center">
+  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/c2c83025-92a7-43a8-8e47-7c360bc6a8de" style="width:90%">
+</div>
+
+
+
+
+
+
