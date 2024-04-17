@@ -1,17 +1,16 @@
+# Vuex framework
 
-# Estrutura Vuex
+## Concept
 
-## Conceito
+- state: This property defines the initial state of the store.
 
-- state: Esta propriedade define o estado inicial do store.
+- getters: Here, we define getters, which are functions used to access the store states.
 
-- getters: Aqui, definimos getters, que são funções usadas para acessar os estados do store.
+- mutations: Mutations are synchronous functions that modify the state of the Vuex store.
 
-- mutations: As mutações são funções síncronas que modificam o estado do store Vuex.
+- actions: Actions are asynchronous functions that call mutations. They are mainly used for asynchronous operations, such as API calls.
 
-- actions: As actions são funções assíncronas que chamam mutações. Elas são usadas principalmente para operações assíncronas, como chamadas de API.
-
-- modules: O Vuex permite que você divida seu store em módulos menores, cada um com seu próprio estado, getters, mutations e actions.
+- modules: Vuex allows you to divide your store into smaller modules, each with its own state, getters, mutations and actions.
 
 
 ## Counter
@@ -20,82 +19,81 @@
 
 ```
 state: {
-  counter: 0
-  loading: false, 
-  error: null,
-  ...
+ counter: 0
+ loading: false,
+ error: null,
+ ...
 ```
-Esta é uma propriedade que define o estado inicial do store. No exemplo dado, o estado inicial inclui um contador inicializado com zero (counter: 0), uma flag para indicar se está carregando algo (loading: false), e uma variável para armazenar erros (error: null).
+This is a property that defines the initial state of the store. In the example given, the initial state includes a counter initialized to zero (counter: 0), a flag to indicate whether something is loading (loading: false), and a variable to store errors (error: null).
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/6d90f022-105c-4c7e-91cc-6538b888f3ee" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/6d90f022-105c-4c7e-91cc-6538b888f3ee" style="width:90%">
 </div>
 
 
 ### getters
 
-```  
-getters: {
-    counter: state => state.counter, 
-    isLoading: state => state.loading, 
-    error: state => state.error /
 ```
-- counter: state => state.counter: Este é um getter chamado "counter" que retorna o valor do estado counter armazenado no objeto state. Isso significa que sempre que você chamar getters.counter, você obterá o valor atual do contador.
+getters: {
+ counter: state => state.counter,
+ isLoading: state => state.loading,
+ error: state => state.error /
+```
+- counter: state => state.counter: This is a getter called "counter" that returns the value of the counter state stored in the state object. This means that whenever you call getters.counter you will get the current value of the counter.
 
-- isLoading: state => state.loading: Este é um getter chamado "isLoading" que retorna o valor do estado loading armazenado no objeto state. Ele fornece acesso ao estado de carregamento da aplicação.
+- isLoading: state => state.loading: This is a getter called "isLoading" that returns the value of the loading state stored in the state object. It provides access to the application's loading state.
 
-- error: state => state.error: Este é um getter chamado "error" que retorna o valor do estado error armazenado no objeto state. Ele fornece acesso a mensagens de erro potencialmente presentes no estado da aplicação.
+- error: state => state.error: This is a getter called "error" that returns the value of the error state stored in the state object. It provides access to error messages potentially present in the application state.
 
 ### mutations
 
-```  
+```
 mutations: {
-    increment: (state, payload) => state.counter = state.counter  + payload, 
-    decrement: (state, payload) => state.counter  = state.counter - payload, 
-    setLoading: (state, payload) => state.loading = payload, 
-    setError: (state, payload) => state.error = payload,
+ increment: (state, payload) => state.counter = state.counter + payload,
+ decrement: (state, payload) => state.counter = state.counter - payload,
+ setLoading: (state, payload) => state.loading = payload,
+ setError: (state, payload) => state.error = payload,
 ```
 
-Mutations possuí quatro funções sincronas para alterar os valores de counter, increment e decrement
+Mutations has four synchronous functions to change the counter, increment and decrement values
 
-- increment: Esta mutação é usada para aumentar o valor do contador no estado da aplicação. Ela recebe um payload que é adicionado ao valor atual do contador.
+- increment: This mutation is used to increase the value of the counter in the application state. It receives a payload that is added to the current counter value.
 
-- decrement: Esta mutação é usada para diminuir o valor do contador no estado da aplicação. Ela também recebe um payload que é subtraído do valor atual do contador.
+- decrement: This mutation is used to decrease the counter value in the application state. It also receives a payload that is subtracted from the current counter value.
 
-- setLoading: Esta mutação é usada para definir o estado de carregamento da aplicação. O payload determina o estado de carregamento, que geralmente é um booleano indicando se a aplicação está atualmente em um estado de carregamento ou não.
+- setLoading: This mutation is used to set the loading state of the application. The payload determines the loading state, which is usually a boolean indicating whether the application is currently in a loading state or not.
 
-- setError: Esta mutação é usada para definir mensagens de erro na aplicação. O payload contém a mensagem de erro a ser definida.
+- setError: This mutation is used to define error messages in the application. The payload contains the error message to be defined.
 
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/9ca3b6ba-eb7b-4497-9016-6da9cae8277a" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/9ca3b6ba-eb7b-4497-9016-6da9cae8277a" style="width:90%">
 </div>
 
 ### actions
 
-Possui 4 funções assincronas incrementAsync, decrementAsync, incrementByAsync e decrementByAsync
+It has 4 asynchronous functions incrementAsync, decrementAsync, incrementByAsync and decrementByAsync
 
 
-- async incrementByAsync({ commit }, payload): Esta é uma função assíncrona chamada incrementByAsync que aceita dois argumentos: commit e payload. commit é um método que é usado para disparar as mutações do Vuex, enquanto payload é um objeto que contém dados adicionais, como o amount que é desestruturado na linha seguinte.
+- async incrementByAsync({ commit }, payload): This is an asynchronous function called incrementByAsync that accepts two arguments: commit and payload. commit is a method that is used to trigger Vuex mutations, while payload is an object that contains additional data, such as amount that is unstructured in the next line.
 
-- const { amount } = payload;: Este código desestrutura o objeto payload, extraindo o valor de amount.
+- const { amount } = payload;: This code destructures the payload object, extracting the amount value.
 
-- commit('setLoading', true);: Aqui, é disparada uma mutação chamada 'setLoading', atualiza o estado para indicar que alguma operação está ocorrendo, como o carregamento de dados.
+- commit('setLoading', true);: Here, a mutation called 'setLoading' is triggered, updates the state to indicate that some operation is taking place, such as data loading.
 
-- await new Promise(resolve => setTimeout(resolve, 1000));: Este é um truque comum usado para simular uma operação assíncrona. Ele cria uma promessa que será resolvida após um segundo, simulando uma espera para alguma operação assíncrona acontecer, como uma chamada de API.
+- await new Promise(resolve => setTimeout(resolve, 1000));: This is a common trick used to simulate an asynchronous operation. It creates a promise that will resolve after one second, simulating waiting for some asynchronous operation to happen, like an API call.
 
-- commit('increment', amount);: Depois que a espera é concluída, outra mutação é disparada, desta vez para incrementar um valor no estado gerenciado pelo Vuex.
+- commit('increment', amount);: After the wait is complete, another mutation is triggered, this time to increment a value in the Vuex-managed state.
 
-- commit('setError', error.message);: Se ocorrer algum erro durante a execução do código dentro do bloco try, será capturado pelo bloco catch e outra mutação será disparada para atualizar o estado com uma mensagem de erro.
+- commit('setError', error.message);: If an error occurs during code execution within the try block, it will be captured by the catch block and another mutation will be triggered to update the state with an error message.
 
-- commit('setLoading', false);: Independentemente do sucesso ou falha da operação, este código garante que a indicação de carregamento seja atualizada para false no final da função.
+- commit('setLoading', false);: Regardless of the success or failure of the operation, this code guarantees that the loading indication is updated to false at the end of the function.
 
-(mesma lógica para incrementAsync, decrementAsync, decrementAsync)
+(same logic for incrementAsync, decrementAsync, decrementAsync)
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/a721e1a0-019c-45e7-bec3-021b353966a9" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/a721e1a0-019c-45e7-bec3-021b353966a9" style="width:90%">
 </div>
-
 
 ## Login
 
@@ -103,15 +101,15 @@ Possui 4 funções assincronas incrementAsync, decrementAsync, incrementByAsync 
 
 ```
 state: {
-  ...
-  user: null
-  ...
+ ...
+ user:null
+ ...
 ```
 
-- Dentro do objeto state, há uma chave chamada user, que inicialmente está definida como null. Isso indica que o estado do usuário está vazio ou não definido no momento.
+- Inside the state object, there is a key called user, which is initially set to null. This indicates that the user state is currently empty or not set.
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/704d9e18-c010-419a-8546-e5d224189d3d" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/704d9e18-c010-419a-8546-e5d224189d3d" style="width:90%">
 </div>
 
 
@@ -119,22 +117,22 @@ state: {
 
 ```
 setUser(state, user) {
-  state.user = user
+ state.user = user
 },
 clearUser(state) {
-  state.user = null
+ state.user = null
 }
 ```
 
-- setUser(state, user): É uma mutação chamada setUser. Ela recebe dois parâmetros: state (que é o estado atual do Vuex) e user. Essa mutação é usada para definir o estado do usuário no Vuex. Ela atualiza o estado com o objeto user que é passado como argumento.
+- setUser(state, user): It is a mutation called setUser. It receives two parameters: state (which is the current state of Vuex) and user. This mutation is used to define the user state in Vuex. It updates the state with the user object that is passed as an argument.
 
-- clearUser(state): É outra mutação chamada clearUser. Ela recebe apenas o parâmetro state. Essa mutação é usada para limpar o estado do usuário, definindo-o como null.
+- clearUser(state): It is another mutation called clearUser. It only receives the state parameter. This mutation is used to clear the user's state by setting it to null.
 
 
 
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/1007e9aa-e002-4535-a3e6-b644f83f9e88" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/1007e9aa-e002-4535-a3e6-b644f83f9e88" style="width:90%">
 </div>
 
 
@@ -142,17 +140,17 @@ clearUser(state) {
 
 ### actions
 ```
-  async loginAsync({ commit }, payload) {
-      const user  = payload;
-      commit('setUser', user);
-    },
+ async loginAsync({ commit }, payload) {
+ const user = payload;
+ commit('setUser', user);
+ },
 ```
-const user = payload;: Aqui, payload é atribuído à constante user. Presumivelmente, o payload contém informações sobre o usuário que está tentando fazer login.
+const user = payload;: Here, payload is assigned to the constant user. Presumably, the payload contains information about the user trying to log in.
 
-commit('setUser', user);: Esta linha invoca uma mutação chamada 'setUser' usando o método commit. As mutações são usadas para alterar o estado da loja de forma síncrona. Neste caso, a mutação 'setUser' é usada para atualizar o estado com as informações do usuário após o login.
+commit('setUser', user);: This line invokes a mutation called 'setUser' using the commit method. Mutations are used to change the store state synchronously. In this case, the 'setUser' mutation is used to update the state with the user information after login.
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/664608dd-9021-4cab-9643-df9fb7e9e061" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/664608dd-9021-4cab-9643-df9fb7e9e061" style="width:90%">
 </div>
 
 
@@ -161,13 +159,13 @@ commit('setUser', user);: Esta linha invoca uma mutação chamada 'setUser' usan
 
 ```
 async logoutAsync({ commit }) {
-     
-      commit('clearUser');
-      
-    },
+
+ commit('clearUser');
+
+ },
 ```
 
-Dentro da função logoutAsync, o código chama commit('clearUser'),  é responsável por limpar os dados do usuário do estado da aplicação.
+Inside the logoutAsync function, the code calls commit('clearUser'), which is responsible for clearing user data from the application state.
 
 
 ## Loading
@@ -176,62 +174,62 @@ Dentro da função logoutAsync, o código chama commit('clearUser'),  é respons
 
 ```
 state: {
-    loading: false,
+ loading: false,
 ```
 
-loading: false: Dentro do objeto state, há uma chave chamada loading, que mantém o estado de um processo de carregamento. Neste caso, loading é inicializado como false, o que significa que inicialmente o componente não estará em um estado de carregamento.
+loading: false: Inside the state object, there is a key called loading, which maintains the state of a loading process. In this case, loading is initialized to false, which means that initially the component will not be in a loading state.
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/eaf58d0e-67b1-4704-9577-1ce90867793e" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/eaf58d0e-67b1-4704-9577-1ce90867793e" style="width:90%">
 </div>
 
 ### mutations
 
 ```
 mutations: {
-    ...
-    setLoading: (state, payload) => state.loading = payload,
-    
+ ...
+ setLoading: (state, payload) => state.loading = payload,
+
 ```
 
 
-- setLoading: Esta mutação é usada para definir o estado de carregamento da aplicação. O payload determina o estado de carregamento, que geralmente é um booleano indicando se a aplicação está atualmente em um estado de carregamento ou não.
+- setLoading: This mutation is used to set the loading state of the application. The payload determines the loading state, which is usually a boolean indicating whether the application is currently in a loading state or not.
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/253abcd2-85f3-4bde-88af-db6fc7a9afff" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/253abcd2-85f3-4bde-88af-db6fc7a9afff" style="width:90%">
 </div>
 
 
 ### actions
 
-- commit('setLoading', true);: Aqui, é disparada uma mutação chamada 'setLoading', atualiza o estado para indicar que alguma operação está ocorrendo, como o carregamento de dados.
+- commit('setLoading', true);: Here, a mutation called 'setLoading' is triggered, updates the state to indicate that some operation is taking place, such as data loading.
 
-- await new Promise(resolve => setTimeout(resolve, 1000));: Este é um truque comum usado para simular uma operação assíncrona. Ele cria uma promessa que será resolvida após um segundo, simulando uma espera para alguma operação assíncrona acontecer, como uma chamada de API.
+- await new Promise(resolve => setTimeout(resolve, 1000));: This is a common trick used to simulate an asynchronous operation. It creates a promise that will resolve after one second, simulating waiting for some asynchronous operation to happen, like an API call.
 
-- commit('setLoading', false);: Independentemente do sucesso ou falha da operação, este código garante que a indicação de carregamento seja atualizada para false no final da função.
+- commit('setLoading', false);: Regardless of the success or failure of the operation, this code guarantees that the loading indication is updated to false at the end of the function.
 
 <div align="center">
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/c2c83025-92a7-43a8-8e47-7c360bc6a8de" style="width:90%">
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/c2c83025-92a7-43a8-8e47-7c360bc6a8de" style="width:90%">
 </div>
 
 ## Modules
 
-Os "modules" são uma forma de dividir a store da aplicação em módulos menores e mais gerenciáveis. Cada módulo tem seu próprio estado, mutações, ações e getters. Isso ajuda a organizar e manter a complexidade da store em larga escala, tornando-a mais modular e fácil de entender e manter.
+"Modules" are a way of dividing the application store into smaller, more manageable modules. Each module has its own state, mutations, actions and getters. This helps organize and maintain the complexity of the large-scale store, making it more modular and easier to understand and maintain.
 
-### Criação do módulo
+### Module creation
 
 <div align="center">
-  <h2> Module products </h2>
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/9f95fc06-363b-4eb0-8224-0e2c4820aa42" style="width:60%">
+ <h2> Module products </h2>
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/9f95fc06-363b-4eb0-8224-0e2c4820aa42" style="width:60%">
 
 </div>
 <br>
 <div align="center">
-  <h2> Module cart </h2>
-  <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/35590572-d40e-4e21-8ded-2f252177a14a" style="width:60%">
+ <h2> Module cart </h2>
+ <img src="https://github.com/lucasmargui/Vue_Estrutura_Vuex/assets/157809964/35590572-d40e-4e21-8ded-2f252177a14a" style="width:60%">
 </div>
 
-### Importando o módulo em store.js
+### Importing the module in store.js
 
 ```
 import cartModule from '@/components/modules/cart';
@@ -239,33 +237,32 @@ import productsModule from '@/components/modules/products';
 
 ```
 
-### Adicionando módulos
+### Adding modules
 
 ```
 modules: {
-      cart:cartModule,
-      products:productsModule,
-      ....
+ cart:cartModule,
+ products:productsModule,
+ ....
 ```
 
-### Acessando getters do módulo na view
+### Accessing module getters in the view
 
 
 ```
 computed: {
-    
-    ...mapGetters("cart", ["cartItems"]),
-    ...mapGetters("products", ["allProducts"]), // Mapeia os getters 'allProducts'
-  },
+
+ ...mapGetters("cart", ["cartItems"]),
+ ...mapGetters("products", ["allProducts"]), // Maps the 'allProducts' getters
+ },
 ```
 
-### Acessando actions do módulo na view
+### Accessing module actions in the view
 
 ```
-  methods: {
-    ...mapActions("cart", ["addToCart"]),
-    ...mapActions("products", ["fetchProducts"]),
-  },
+ methods: {
+ ...mapActions("cart", ["addToCart"]),
+ ...mapActions("products", ["fetchProducts"]),
+ },
 ```
-
 
